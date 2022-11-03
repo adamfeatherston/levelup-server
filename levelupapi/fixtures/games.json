@@ -1,0 +1,14 @@
+[
+    {
+        "model": "levelupapi.game",
+        "pk": 1,
+        "fields": {
+            "game_type": 2,
+            "gamer": 1,
+            "title": "Monopoly",
+            "maker": "Matel",
+            "number_of_players": 6,
+            "skill_level": 5
+        }
+    }
+]

@@ -1,0 +1,13 @@
+[
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "game": 1,
+            "gamer": 1,
+            "description": "Will really be playing the board game Monopoly, but I guess it can also be considered a role-playing game.",
+            "date": 2022-11-5,
+            "time": 5
+        }
+    }
+]
