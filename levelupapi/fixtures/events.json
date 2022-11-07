@@ -4,10 +4,32 @@
         "pk": 1,
         "fields": {
             "game": 1,
-            "gamer": 1,
+            "organizer": 1,
             "description": "Will really be playing the board game Monopoly, but I guess it can also be considered a role-playing game.",
-            "date": 2022-11-5,
-            "time": 5
+            "date": "2022-12-05",
+            "time": "19:30:00"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 2,
+        "fields": {
+            "game": 2,
+            "organizer": 1,
+            "description": "Laurel's favorite game",
+            "date": "2023-01-22",
+            "time": "16:30:00"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 3,
+        "fields": {
+            "game": 3,
+            "organizer": 1,
+            "description": "Play at the East house.",
+            "date": "2022-12-31",
+            "time": "18:00:00"
         }
     }
 ]
