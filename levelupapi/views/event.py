@@ -12,11 +12,23 @@ class EventView(ViewSet):
     """Level up event types view"""
 
     def create(self, request):
-        """Handle POST requests for service tickets
+        """Handle POST operations
 
-        Returns:
-            Response: JSON serialized representation of newly created service ticket
+        Returns
+            Response -- JSON serialized game instance
         """
+        organizer = Gamer.objects.get(user=request.auth.user)
+        game = Game.objects.get(pk=request.data["game"])
+
+        event = Event.objects.create(
+            description=request.data["description"],
+            date=request.data["date"],
+            time=request.data["time"],
+            organizer=organizer,
+            game=game
+        )
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
     
     def retrieve(self, request, pk):
         """Handle GET requests for single event type
