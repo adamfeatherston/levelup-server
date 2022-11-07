@@ -10,14 +10,24 @@ class GameView(ViewSet):
     """Level up game types view"""
 
     def create(self, request):
-        """Handle POST requests for service tickets
+        """Handle POST operations
 
-        Returns:
-            Response: JSON serialized representation of newly created service ticket
+        Returns
+            Response -- JSON serialized game instance
         """
-        new_game = Game()
-        game_type_id = request.data[game_type_id]
-        new_game.game_type =GameType.objects.get(pk=game_type_id)
+        gamer = Gamer.objects.get(user=request.auth.user)
+        game_type = GameType.objects.get(pk=request.data["game_type"])
+
+        game = Game.objects.create(
+            title=request.data["title"],
+            maker=request.data["maker"],
+            number_of_players=request.data["number_of_players"],
+            skill_level=request.data["skill_level"],
+            gamer=gamer,
+            game_type=game_type
+        )
+        serializer = GameSerializer(game)
+        return Response(serializer.data)
     
     def retrieve(self, request, pk):
         """Handle GET requests for single game type
