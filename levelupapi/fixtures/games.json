@@ -1,5 +1,13 @@
 [
     {
+        "model": "levelupapi.gamer",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Me"
+        }
+    },
+    {
         "model": "levelupapi.game",
         "pk": 1,
         "fields": {
@@ -9,6 +17,62 @@
             "maker": "Matel",
             "number_of_players": 6,
             "skill_level": 5
+        }
+    },
+    {
+        "model": "levelupapi.game",
+        "pk": 2,
+        "fields": {
+            "game_type": 1,
+            "gamer": 1,
+            "title": "Eye Found It!",
+            "maker": "Disney",
+            "number_of_players": 6,
+            "skill_level": 2
+        }
+    },
+    {
+        "model": "levelupapi.game",
+        "pk": 3,
+        "fields": {
+            "game_type": 3,
+            "gamer": 1,
+            "title": "Boggle",
+            "maker": "Haboro",
+            "number_of_players": 4,
+            "skill_level": 5
+        }
+    },
+    {
+        "model": "levelupapi.gametype",
+        "pk": 1,
+        "fields": {
+            "label": "Board game"
+        }
+    },
+    {
+        "model": "levelupapi.gametype",
+        "pk": 2,
+        "fields": {
+            "label": "Role-playing game"
+        }
+    },
+    {
+        "model": "levelupapi.gametype",
+        "pk": 3,
+        "fields": {
+            "label": "MMO game"
+        }
+    },
+    {
+        "model": "levelupapi.event",
+        "pk": 1,
+        "fields": {
+            "game": 1,
+            "organizer": 1,
+            "description": "Will really be playing the board game Monopoly, but I guess it can also be considered a role-playing game.",
+            "date": "2022-12-05",
+            "time": "19:30:00"
         }
     }
 ]
