@@ -30,6 +30,19 @@ class EventView(ViewSet):
         serializer = EventSerializer(event)
         return Response(serializer.data)
     
+    def update(self, request, pk):
+
+        event = Event.objects.get(pk=pk)
+        event.description = request.data["description"]
+        event.date = request.data["date"]
+        event.time = request.data["time"]
+
+        game = Game.objects.get(pk=request.data["game"])
+        event.game = game
+        event.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
     def retrieve(self, request, pk):
         """Handle GET requests for single event type
 
