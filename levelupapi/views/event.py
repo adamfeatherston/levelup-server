@@ -54,6 +54,10 @@ class EventView(ViewSet):
         serializer = EventSerializer(event)
         return Response(serializer.data)
 
+    def destroy(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        event.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def list(self, request):
         """Handle GET requests to get all event types
