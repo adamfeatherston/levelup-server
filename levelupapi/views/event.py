@@ -3,6 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
+from rest_framework.decorators import action
 from levelupapi.models import Event
 from levelupapi.models import Game
 from levelupapi.models import Gamer
@@ -54,6 +55,25 @@ class EventView(ViewSet):
         serializer = EventSerializer(event)
         return Response(serializer.data)
 
+    @action(methods=['post'], detail=True)
+    def signup(self, request, pk):
+        """Post request for a user to sign up for an event"""
+
+        gamer = Gamer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.attendees.add(gamer)
+        return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
+
+    @action(methods=['delete'], detail=True)
+    def leave(self, request, pk):
+
+        gamer = Gamer.objects.get(user=request.auth.user)
+        event = Event.objects.get(pk=pk)
+        event.attendees.remove(gamer)
+        return Response({'message': 'Gamer removed'}, status=status.HTTP_204_NO_CONTENT)
+    
+
+
     def destroy(self, request, pk):
         event = Event.objects.get(pk=pk)
         event.delete()
@@ -67,11 +87,19 @@ class EventView(ViewSet):
         """
 
         events =  []
+        gamer = Gamer.objects.get(user=request.auth.user)
         events = Event.objects.all()
+        
+        # filter events by game.
         if "game" in request.query_params:
             events = events.filter(game_id=request.query_params['game'])
             if request.query_params['game'] == "all":
                 pass
+
+        # Set the `joined` property on every event
+        for event in events:
+            # Check to see if the gamer is in the attendees list on the event
+            event.joined = gamer in event.attendees.all()
 
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -97,4 +125,4 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'description', 'date', 'time', 'game', 'organizer')   
+        fields = ('id', 'description', 'date', 'time', 'game', 'organizer', 'attendees', 'joined')   
